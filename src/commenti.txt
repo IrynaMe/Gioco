@@ -1,0 +1,10 @@
+Serve il file config.properties
+
+Per vincere nel gioco si deve per forza (ordine non importa):
+- entrare in città
+- sconfiggere il avversario(dipende dal livello)
+- guadagnare le monete -> andare 1 ovest(incontrare il cacciatore) o 2 est(fare indovinelli)
+- comprare il cibo in taverna(avere monete)
+per riprendere energia serve andare a nord->bere aqua
+
+
