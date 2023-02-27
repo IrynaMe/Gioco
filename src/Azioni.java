@@ -865,10 +865,10 @@ public class Azioni {
     }
 
     public void controlloEnergia(Player player) {
-        if (player.getEnergiaAttuale() < 10) {
+        if (player.getEnergiaAttuale() < 10&&player.getEnergiaAttuale()>0) {
             System.out.println("* La tua energia e meno di 10. Cerca di ricuperarla, prova andare a nord");
         }
-        if (player.getEnergiaAttuale() < 0) {
+        if (player.getEnergiaAttuale() <= 0) {
             player.setEnergiaAttuale(0);
             System.out.println("La tua energia attuale è 0.");
             System.out.println("Il gioco è finito.");
