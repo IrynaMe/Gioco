@@ -3,7 +3,7 @@ import java.time.LocalTime;
 public class Player {
     //nome -energia
     private String nome;
-    private boolean isOvest;
+    private boolean isOvest;//se è andato a ovest
     private boolean isScappato; //se scappa dalla guardia
     private boolean isSconfittoGuardia; //se vince guardia
     private boolean isPermesso;//se ha una lettera metodo ovest()

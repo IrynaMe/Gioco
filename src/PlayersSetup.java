@@ -9,10 +9,9 @@ import java.util.Scanner;
 public class PlayersSetup {
 
     private Properties properties = null;
-    private Player player;
-    // private String livello;
-    private ArrayList<Player> personaggi;
-    String[] preferenzeGiocatore;//nome e livello difficolta di Gioco
+
+    private ArrayList<Player> personaggi;//giocatore,avversario,guardia
+    String[] preferenzeGiocatore;//nome e livello difficoltà di Gioco
 
     HashMap<String, Integer> impostazioni = new HashMap<String, Integer>(); //random numeri per opportunità degli avvenimenti
 
@@ -20,14 +19,12 @@ public class PlayersSetup {
         return impostazioni;
     }
 
-    public String[] getPreferenzeGiocatore() {
-        return preferenzeGiocatore;
-    }
 
     public ArrayList<Player> getPersonaggi() {
         return personaggi;
     }
 
+    //returns preferenze di giocatore -> dipendono dal livello scelto-<per usare in giocatoriSetup()
     public String[] introduzione() {
         Scanner scanner = new Scanner(System.in);
         String livello = "";
@@ -60,6 +57,8 @@ public class PlayersSetup {
         return preferenzeGiocatore;
     }
 
+
+    //prende preferenze di giocatore->crea personaggi->returns ArrayList di personaggi
     public ArrayList<Player> giocatoriSetup() {
         preferenzeGiocatore = introduzione();
         String nomeGiocatore = preferenzeGiocatore[0];
@@ -132,7 +131,6 @@ public class PlayersSetup {
         } catch (IOException e) {
             System.out.println("Non posso leggere il file: " + e.getMessage());
         }
-
 
         impostazioni.put("numRandFortunaFino50", numRandFortunaFino50);
         impostazioni.put("numRandFortunaGrande", numRandFortunaGrande);

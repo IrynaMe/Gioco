@@ -1,8 +1,4 @@
-import javax.swing.plaf.TableHeaderUI;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.SQLOutput;
+
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -17,9 +13,9 @@ public class Azioni {
     Scanner scanner = new Scanner(System.in);
     Combat combat = new Combat();
 
-    ArrayList<Integer> indovinelliCoretto = new ArrayList<>();
-    ArrayList<Integer> indovinelliErrato = new ArrayList<>();
-    ArrayList<Integer> indovinelliErratoBackup = new ArrayList<>();
+    ArrayList<Integer> indovinelliCoretto = new ArrayList<>();//per risposte corrette nel metodo est()
+    ArrayList<Integer> indovinelliErrato = new ArrayList<>();//per risposte sbagliate nel metodo est()->si distrugge al fine del metodo
+    ArrayList<Integer> indovinelliErratoBackup = new ArrayList<>();//per controllo del est()->non si distrugge
     PlayersSetup playersSetup = new PlayersSetup();
 
     public PlayersSetup getPlayersSetup() {
@@ -27,7 +23,6 @@ public class Azioni {
     }
 
     HashMap<String, Integer> impostazioni = playersSetup.getImpostazioni();
-
 
     public void iniziaGioco(Player player) {
         System.out.println("* Hai un pacco importante da consegnare in città Citabella per un Signore Daipacchetti.");
@@ -43,6 +38,10 @@ public class Azioni {
         }
     }
 
+    //entra se: 1 ha vinto il avversario(boolean)
+    // 2 ha lettera di invito (boolean)
+    // 3 sceglie di parlare e ha fortuna(random)->puo provare 2 volte, ogni volta in caso di sfortuna -perde energia
+    // 4 attacca e vince guardia
     public void entrataCitta(Player player) throws InterruptedException {
         String scelta1 = "";
         String scelta2 = "";
@@ -298,7 +297,7 @@ public class Azioni {
 
     // se vince->bonus energia=energiaStart di guargia/avversario, altro dipende con chi combatte:
     // se vince la guardia-entra la città
-    // se vince avversario-va a parlare con la Guardia per entrare nella città
+    // se vince avversario-va a parlare con la Guardia per entrare nella città + taverna diventa aperta(metodo dentroCitta())
     public void startAttacco(Player giocatoreA, Player giocatoreB) {
         while (giocatoreA.getEnergiaAttuale() > 0 || giocatoreB.getEnergiaAttuale() > 0) {
 
@@ -364,7 +363,7 @@ public class Azioni {
         }
     }
 
-
+//sceglie 4 direzioni
     public void incrocio(Player player) {
 
         String scelta = "";
@@ -417,9 +416,9 @@ public class Azioni {
     }
 
     // puo riprendere energia ->se non ha già bevuto da 2 min
-    // prende energia e incontra un avversario->
-    // 1 scappa all'incrocio e perde energia oppure 2 combatte:
-    // 2a se vince->entrataCitta():andare a parlare con Guardia chi lo fara passare 2b-game over
+    // dopo scelta A) torna a incrocio B) incontra un avversario->
+    // B1 scappa all'incrocio e perde energia oppure
+    // B2 combatte. se sconfitta ->entrataCitta():va a parlare con Guardia chi lo farà passare. perde-game over
     public void nord(Player player) throws InterruptedException {
 
         System.out.println("------------------------------------------------------------------");
@@ -686,7 +685,7 @@ public class Azioni {
     }
 
     //viene in villaggio e puo: 1 fare indovinelli->paga 1 moneta per provare indovino, se vince->riceve 5 monete
-// 2 tornare al incrocio
+    // 2 tornare al incrocio
     public void est(Player player) throws InterruptedException {
         if (indovinelliCoretto.size() == conversazioni.getIndovini().length) {
             System.out.println("----------------------------------------------------------");
@@ -727,33 +726,30 @@ public class Azioni {
                 incrocio(player);
             }
             player.setMoneteAttuale(player.getMoneteAttuale() - 1);
-            //
+            //genera nuovo numero se indovinello e già stato mostrato
             do {
-                numRanIndovino = (int) (Math.random() * 9); //for array indovinelli ind 0-8
+                numRanIndovino = (int) (Math.random() * 9); //for array indovini ind 0-8
                 if ((indovinelliErrato.size() > 0 && indovinelliCoretto.size() > 0) &&
                         (indovinelliCoretto.size() + indovinelliErrato.size() == conversazioni.getIndovini().length)
-                ||indovinelliCoretto.size() == conversazioni.getIndovini().length) {
+                        || indovinelliCoretto.size() == conversazioni.getIndovini().length) {
                     isFinito = true;
                     break;
                 }
             } while (indovinelliCoretto.contains(numRanIndovino) || indovinelliErrato.contains(numRanIndovino)
 
             );
-
-
+            //se player ha visto tutte indovinelli (anche se con risposte sbagliate)
             if (isFinito) {
                 System.out.println("SIGNORA: Non ci sono più indovinelli per te, torna l'altra volta");
                 //domande per risposte sbagliate possono apparire la prossima volta
-                indovinelliErratoBackup=indovinelliErrato;
+                indovinelliErratoBackup = indovinelliErrato;
                 indovinelliErrato = new ArrayList<>();
-
                 incrocio(player);
             }
             String indovino = conversazioni.getIndovini()[numRanIndovino];
             String rispostaGiusta = conversazioni.getRisposteIndovini()[numRanIndovino];
             System.out.println("INDOVINELLO: " + indovino);
             rispostaIndovino = scanner.next().toUpperCase().trim();
-            System.out.println("TEST num indovino prima" + numRanIndovino);
 
             if (rispostaIndovino.equals(rispostaGiusta)) {
                 player.setMoneteAttuale(player.getMoneteAttuale() + impostazioni.get("numGuadagno"));
@@ -770,8 +766,7 @@ public class Azioni {
             sceltaSeContinuare = scanner.next().toUpperCase();
 
         }
-
-        //domande per risposte sbagliate possono apparire la prossima volta
+        //domande per risposte sbagliate possono apparire la prossima volta chiamando est()
         indovinelliErrato = new ArrayList<>();
         incrocio(player);
     }
@@ -780,7 +775,7 @@ public class Azioni {
     //1 se hai sconfitto il avversario prima->taverna aperta
     //1a parli con proprietaria, se hai abbastanza soldi-compri la cena e vinci
     //1b se non hai abbastanza monete-> vai a guadagnare
-    //2 se non hai sconfitto il avversario prima->taverna chiusa e appare avversario
+    //2 se non hai sconfitto il avversario prima->taverna chiusa e appare avversario: scelta scappare o attaccare
 
     public void dentroCitta(Player player) throws InterruptedException {
         if (!player.isTaverna()) {
