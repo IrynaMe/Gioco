@@ -350,6 +350,7 @@ public class Azioni {
                     + giocatoreB.getEnergiaStart());
             if (giocatoreB.equals(playersSetup.getPersonaggi().get(2))) {
                 giocatoreA.setSconfittoGuardia(true);
+                giocatoreB.setEnergiaAttuale(giocatoreB.getEnergiaStart());
 
                 System.out.println("* La Guardia non può firmarti più, ora poi entrare in città e trovare la taverna!");
                 System.out.println("* Ma stai attento: la Guardia non dimenticherà questo combattimento!");
