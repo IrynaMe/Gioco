@@ -2,12 +2,12 @@ public class Conversazioni {
     private String[] convincereGuardia = {
             "Mia nonna vive qui, sono venuto a trovarla e le ho portato dei pasticcini",
             "Mi lamenterò presso la Commissione per i diritti umani!",
-            "Che bel vestito hai, proprio di colore dei tuoi occhi!",
+            "Che bel vestito hai, proprio del colore dei tuoi occhi!",
             "Non osare parlarmi così! Sono un cugino di un nipote della moglie di un amico del Sindaco!",
-            "La forza oscura sta per distruggere la vostra città, se non mi lasciate entrare, il danno sarà irreparabile!",
+            "La forza oscura sta per distruggere la vostra città, se non mi lascia entrare, il danno sarà irreparabile!",
             "Anche io sono la Guardia nella mia città, forse troviamo un compromesso come due collegi?",
-            "Sembri triste, vuoi una barzelletta? Perchè pomodoro non riesce a dormire? ...Perchè insalata russa! Ahahaha",
-            "L'anno scorso ho vissuto dalla mia zia e ho dimenticato lo spazzolino, devo prenderlo"
+            "Sembri triste, vuoi una barzelletta? Perchè il pomodoro non riesce a dormire? ...Perchè l'insalata russa! Ahahaha",
+            "L'anno scorso ho vissuto da mia zia e ho dimenticato lo spazzolino, devo prenderlo"
     };
 
 
