@@ -393,7 +393,7 @@ public class Azioni {
 
         String scelta = "";
         System.out.println("----------------------------------------------------------");
-        System.out.println("* Sei venuto all'incrocio, dove vuoi andare");
+        System.out.println("* Sei venuto all'incrocio, dove vuoi andare?");
         System.out.println("N -> Nord");
         System.out.println("O -> Ovest");
         System.out.println("E -> Est");
