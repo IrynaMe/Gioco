@@ -13,8 +13,7 @@ public class Player {
     private boolean isTaverna; //dove incontrato il avversario
     private boolean isCitta; // se entrato in città
     private boolean isParlatoProprietaria;
-private boolean guardiaContenta;//se guardia sa che ha ucciso il avversario
-
+    private boolean guardiaContenta;//se guardia sa che ha ucciso il avversario
 
     private int energiaAttuale;
     private int energiaStart;

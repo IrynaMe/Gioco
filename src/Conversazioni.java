@@ -49,6 +49,7 @@ public class Conversazioni {
     public String[] getRisposteIndovini() {
         return risposteIndovini;
     }
+
     private String[] risposteIndovini = {
             "8",
             "GHIACCIO",

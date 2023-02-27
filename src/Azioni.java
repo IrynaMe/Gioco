@@ -82,10 +82,10 @@ public class Azioni {
         //Blocco parlare->2 volte possibilità di entrare (random)
         if (scelta1.equals("P")) {
             //se player scappato dalla guardia (boolean)
-            if ((player.isScappato() && !player.isPermesso()&&!player.isGuardiaContenta())|| player.isSconfittoGuardia()) {
-                if (player.isScappato()){
+            if ((player.isScappato() && !player.isPermesso() && !player.isGuardiaContenta()) || player.isSconfittoGuardia()) {
+                if (player.isScappato()) {
                     Thread.sleep(1000);
-                    System.out.println("GUARDIA: Ciao straniero, ti ricordo così il tuo nome è "
+                    System.out.println("GUARDIA: Ciao straniero, ti ricordo, così il tuo nome è "
                             + player.getNome());
                     Thread.sleep(1000);
                     System.out.println("GUARDIA:...Hai scappato da me l'altra volta, cosa vuoi adesso?");
@@ -112,10 +112,10 @@ public class Azioni {
                     scelta4 = scanner.next().toUpperCase();
 
                     if (scelta4.equals("P")) {
-                        if (player.getMoneteAttuale() >=15) {
+                        if (player.getMoneteAttuale() >= 15) {
                             player.setMoneteAttuale(player.getMoneteAttuale() - 15);
                             Thread.sleep(1000);
-                            System.out.println("Hai pagato la multa. Adesso rimangono " + player.getMoneteAttuale()+" monete");
+                            System.out.println("Hai pagato la multa. Adesso rimangono " + player.getMoneteAttuale() + " monete");
 
                             Thread.sleep(1000);
                             System.out.println("GUARDIAN: Bravo. Ti faccio un favore: elimino la tua procedura in ufficio");
@@ -137,12 +137,12 @@ public class Azioni {
                 }
             } else {
                 Thread.sleep(1000);
-                System.out.println("GUARDIA: Ciao straniero, come ti chiami?");
+                System.out.println("GUARDIA: Ciao straniero, chi sei?");
             }
 
             //random prima opportunità di entrare dipende dal livello: 1/2 Semplice; 1/3 medio, 1/4 difficile
             numRandFortunaFino50 = (int) (Math.random() * numA + 1);
-            if (numRandFortunaFino50 != 1 && !player.isSconfittoAvversario() &&!player.isSconfittoGuardia()) {
+            if (numRandFortunaFino50 != 1 && !player.isSconfittoAvversario() && !player.isSconfittoGuardia()) {
                 Thread.sleep(1000);
                 System.out.println(player.getNome() + ": ...sono " + player.getNome() + ", posso passare?");
                 Thread.sleep(1000);
@@ -219,7 +219,7 @@ public class Azioni {
         // puoi entrare se: -hai fortuna(random)
         // -hai la lettera dal Capitano: dopo metodo ovest()
         // -sconfitto avversario :dopo metodo startAttacco()
-        if ((!player.isSconfittoGuardia())&&((numRandFortunaGrande <= 50 && numRandFortunaGrande != 0)
+        if ((!player.isSconfittoGuardia()) && ((numRandFortunaGrande <= 50 && numRandFortunaGrande != 0)
                 || numRandFortunaFino50 == 1 || player.isPermesso() || player.isSconfittoAvversario())) {
             if (numRandFortunaFino50 == 1 && !player.isPermesso() && !player.isSconfittoAvversario()) {
 
@@ -228,8 +228,8 @@ public class Azioni {
                 Thread.sleep(1000);
                 System.out.println("...Ho fatto un viaggio lungo per arrivare quà," +
                         "cerco un Signore per consegnarli un pacco importante");
-            //se sconfitto avversario ma guardia non lo sa(boolean isGuardiaContenta)
-            } else if (player.isSconfittoAvversario()&&player.isGuardiaContenta()==false) {
+                //se sconfitto avversario ma guardia non lo sa(boolean isGuardiaContenta)
+            } else if (player.isSconfittoAvversario() && !player.isGuardiaContenta()) {
                 Thread.sleep(1000);
                 System.out.println("GUARDIA: Perchè hai un livido sotto l'occhio?");
                 Thread.sleep(1000);
@@ -243,24 +243,25 @@ public class Azioni {
                 //se player ha lettera ->metodo ovest()->boolean isPermesso
             } else if (player.isPermesso()) {
                 Thread.sleep(1000);
-                System.out.println(player.getNome()+":...Ho la lettera, firmata dal Capitano della guardia! Sbrigati!");
-            //se player sconfitto avversario (boolean) e l'ho gia detto a guardia prima(boolean isGuardiaContenta)
-            } else if (player.isSconfittoAvversario()&&player.isGuardiaContenta()==true) {
-                System.out.println("GUARDIA: Ah! Ti ricordo: sei "+player.getNome()+"! Hai salvato la nostra città!");
+                System.out.println(player.getNome() + ":...Ho la lettera, firmata dal Capitano della guardia! Sbrigati!");
+                //se player sconfitto avversario (boolean) e l'ho gia detto a guardia prima(boolean isGuardiaContenta)
+            } else if (player.isSconfittoAvversario() && player.isGuardiaContenta() == true) {
+                System.out.println("GUARDIA: Ah! Ti ricordo: sei " + player.getNome() + "! Hai salvato la nostra città!");
             }
 
             Thread.sleep(1000);
             System.out.println("GUARDIA: Va bene, va bene, puoi entrare.");
 
-            int numBonus = (int) (Math.random() * 25 + 10);
-            Thread.sleep(1000);
+
             System.out.println("----------------------------------------------------------");
-            System.out.println("* Auguri! Puoi entrare in città!");
+            System.out.println("* Congratulazioni! Puoi entrare in città!");
             if ((numRandFortunaFino50 == 1 || numRandFortunaGrande <= 50) && !player.isGuardiaContenta()) {
                 System.out.println("* Sei fortunato: la Guardia aveva un buon umore.");
                 System.out.println("* Ma la prossima volta può essere non cosi' facile.");
 
             }
+            int numBonus = (int) (Math.random() * 25 + 10);
+            Thread.sleep(1000);
             player.setEnergiaAttuale(player.getEnergiaAttuale() + numBonus);
             Thread.sleep(1000);
             System.out.println("----------------------------------------------------------");
@@ -272,14 +273,14 @@ public class Azioni {
 
 
         //Blocco Attaccare->se vinci ricevi bonus energia=energiaStart di Guardia
-        if (scelta1.equals("A") || scelta2.equals("A") || scelta3.equals("A") || scelta5.equals("A") ||scelta4.equals("A")) {
+        if (scelta1.equals("A") || scelta2.equals("A") || scelta3.equals("A") || scelta4.equals("A") || scelta5.equals("A")) {
             Player guardia = playersSetup.getPersonaggi().get(2);
             startAttacco(player, guardia);
         }
 
 
         //Blocco Scappare->se scappi ricevi Multa diminuire energia o bonus energia->random 10-25
-        if (scelta1.equals("S") || scelta2.equals("S") || scelta3.equals("S") || scelta5.equals("S")||scelta4.equals("S") ) {
+        if (scelta1.equals("S") || scelta2.equals("S") || scelta3.equals("S") || scelta4.equals("S") || scelta5.equals("S")) {
             Thread.sleep(1000);
             System.out.println("----------------------------------------------------------");
             System.out.println("* Sei riuscito a scappare!");
@@ -302,7 +303,7 @@ public class Azioni {
     }
 
 
-    // se vince->bonus energia=energiaStart di guargia/avversario, altro dipende con chi combatte:
+    // se vince->bonus energia=energiaStart di guardia/avversario, altro dipende con chi combatte:
     // se vince la guardia-entra la città
     // se vince avversario-va a parlare con la Guardia per entrare nella città + taverna diventa aperta(metodo dentroCitta())
     public void startAttacco(Player giocatoreA, Player giocatoreB) {
@@ -316,7 +317,7 @@ public class Azioni {
             System.out.println("-----------------------------------------------------------");
             System.out.println("* Attacca il Giocatore " + giocatoreA.getNome().toUpperCase());
             System.out.println("* ENERGIA del " + giocatoreB.getNome().toUpperCase() + ": ==="
-                    + giocatoreB.getEnergiaAttuale()+"===");
+                    + giocatoreB.getEnergiaAttuale() + "===");
 
             combat.attacco(giocatoreB);
             if (giocatoreB.getEnergiaAttuale() < 0) {
@@ -330,7 +331,7 @@ public class Azioni {
             System.out.println("-----------------------------------------------------------");
             System.out.println("* Attacca il giocatore " + giocatoreB.getNome().toUpperCase());
             System.out.println("* ENERGIA di " + giocatoreA.getNome().toUpperCase() + ": ==="
-                    + giocatoreA.getEnergiaAttuale()+"===");
+                    + giocatoreA.getEnergiaAttuale() + "===");
             combat.attacco(giocatoreA);//parte sempre playerA
             if (giocatoreA.getEnergiaAttuale() < 0) {
                 giocatoreA.setEnergiaAttuale(0);
@@ -348,7 +349,7 @@ public class Azioni {
             System.out.println("----------------------------------------------------------");
             System.out.println("* Hai vinto il combattimento! Hai ricevuto il bonus: energia dallo sfidante: "
                     + giocatoreB.getEnergiaStart());
-            System.out.println("Ora la tua energia è: "+giocatoreA.getEnergiaAttuale());
+            System.out.println("Ora la tua energia è: " + giocatoreA.getEnergiaAttuale());
             if (giocatoreB.equals(playersSetup.getPersonaggi().get(2))) {
                 giocatoreA.setSconfittoGuardia(true);
                 giocatoreB.setEnergiaAttuale(giocatoreB.getEnergiaStart());
@@ -389,7 +390,7 @@ public class Azioni {
         }
     }
 
-//sceglie 4 direzioni
+    //sceglie 1 delle 4 direzioni
     public void incrocio(Player player) {
 
         String scelta = "";
@@ -398,7 +399,7 @@ public class Azioni {
         System.out.println("N -> Nord");
         System.out.println("O -> Ovest");
         System.out.println("E -> Est");
-        System.out.println("S -> Sud");
+        System.out.println("S -> Sud-> Città");
 
         boolean flag = false;
         while (!flag) {
@@ -642,9 +643,9 @@ public class Azioni {
                             Thread.sleep(1000);
                             System.out.println(player.getNome() + ": Va bene, ti dico la verità:");
                             Thread.sleep(1000);
-                            System.out.println(player.getNome()+"...La guardia non mi fa entrare nella città, cosi cerco un modo...");
+                            System.out.println(player.getNome() + "...La guardia non mi fa entrare nella città, cosi cerco un modo...");
                             Thread.sleep(1000);
-                            System.out.println(player.getNome()+"...Ho visto la tua casa era aperta e ho trovato la lettera, la preso, ecco..");
+                            System.out.println(player.getNome() + "...Ho visto la tua casa era aperta e ho trovato la lettera, la preso, ecco..");
                             int numCacciatoreCapisce = (int) (Math.random() * numA + 1);
                             if (numCacciatoreCapisce == 1) {
                                 Thread.sleep(1000);
@@ -745,7 +746,7 @@ public class Azioni {
         String sceltaSeContinuare = "";
         int numRanIndovino = 0;
         boolean isFinito = false;
-        while ((scelta.equals("I") || sceltaSeContinuare.equals("S") )&& isFinito == false) {
+        while ((scelta.equals("I") || sceltaSeContinuare.equals("S")) && isFinito == false) {
             scelta = "";
             if (player.getMoneteAttuale() <= 0) {
                 Thread.sleep(1000);
@@ -817,7 +818,7 @@ public class Azioni {
         if (player.isSconfittoAvversario()) {
             Thread.sleep(1000);
             System.out.println("----------------------------------------------------------");
-            if (!player.isParlatoProprietaria()){
+            if (!player.isParlatoProprietaria()) {
                 System.out.println("PROPRIETARIA: Ciao straniero! Ho sentito che hai sconfitto il " + playersSetup.getPersonaggi().get(1).getNome() + "!");
                 Thread.sleep(1000);
                 System.out.println("PROPRIETARIA:...Sei un eroe!");
@@ -826,14 +827,14 @@ public class Azioni {
                 Thread.sleep(1000);
                 System.out.println("PROPRIETARIA: cosa cerchi nella nostra città?");
                 Thread.sleep(1000);
-                System.out.println(player.getNome()+": Devo trovare il Signore Daipacchetti, speravo che tu mi aiuti.");
+                System.out.println(player.getNome() + ": Devo trovare il Signore Daipacchetti, speravo che tu mi aiuti.");
                 Thread.sleep(1000);
                 System.out.println("PROPRIETARIA: Eh..si, lo conosco e ti aiuto se ordini il nostro piatto del giorno. Costa 16 monete");
                 Thread.sleep(1000);
                 System.out.println("----------------------------------------------------------");
                 System.out.println("Hai " + player.getMoneteAttuale() + " monete.");
                 player.setParlatoProprietaria(true);
-            }else{
+            } else {
                 System.out.println("PROPRIETARIA: Allora sei tornato.. ");
                 System.out.println("PROPRIETARIA: Ora vuoi ordinare il cibo? ");
             }
@@ -904,7 +905,7 @@ public class Azioni {
             System.out.println(" S -> Scappare | Altro -> Attaccare");
             String scelta = scanner.next().toUpperCase();
             if (scelta.equals("S")) {
-                if (player.isSconfittoGuardia()){
+                if (player.isSconfittoGuardia()) {
                     System.out.println("Sei riuscito ad uscire dalla città senza essere notato dalla Guardia");
                 }
                 incrocio(player);
@@ -917,7 +918,7 @@ public class Azioni {
     }
 
     public void controlloEnergia(Player player) {
-        if (player.getEnergiaAttuale() < 10&&player.getEnergiaAttuale()>0) {
+        if (player.getEnergiaAttuale() < 10 && player.getEnergiaAttuale() > 0) {
             System.out.println("* La tua energia e meno di 10. Cerca di ricuperarla, prova andare a nord");
         }
         if (player.getEnergiaAttuale() <= 0) {
