@@ -12,6 +12,7 @@ public class Player {
     private boolean isNord; //dove incontrato il avversario
     private boolean isTaverna; //dove incontrato il avversario
     private boolean isCitta; // se entrato in città
+    private boolean isParlatoProprietaria;
 private boolean guardiaContenta;//se guardia sa che ha ucciso il avversario
 
 
@@ -19,6 +20,14 @@ private boolean guardiaContenta;//se guardia sa che ha ucciso il avversario
     private int energiaStart;
     private int moneteStart;
     private int moneteAttuale;
+
+    public boolean isParlatoProprietaria() {
+        return isParlatoProprietaria;
+    }
+
+    public void setParlatoProprietaria(boolean parlatoProprietaria) {
+        isParlatoProprietaria = parlatoProprietaria;
+    }
 
     public boolean isGuardiaContenta() {
         return guardiaContenta;

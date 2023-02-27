@@ -97,22 +97,22 @@ public class Azioni {
 
                 if (player.isSconfittoGuardia()) {
                     Thread.sleep(1000);
-                    System.out.println("GUARDIA: ti conosco " + player.getNome() + "!");
+                    System.out.println("GUARDIA: Ora ti ho riconosciuto " + player.getNome() + "!");
                     Thread.sleep(1000);
-                    System.out.println("Hai mandato il mio collega in ospedale! Sei fortunato, lui non mi piaceva tanto");
+                    System.out.println("GUARDIA: Hai mandato il mio collega in ospedale! Sei fortunato, lui non mi piaceva tanto");
                     Thread.sleep(1000);
-                    System.out.println("Ma sei ricercato. Allora pagami 15 monete o ti butto in prigione! ");
+                    System.out.println("GUARDIA: Ma sei ricercato. Allora pagami 15 monete o ti butto in prigione! ");
 
                     Thread.sleep(1000);
                     System.out.println("------------------------------------------------------------------");
-                    System.out.println("Hai " + player.getMoneteAttuale() + " monete.");
+                    System.out.println("* Hai " + player.getMoneteAttuale() + " monete.");
                     System.out.println("* La tua energia é: " + player.getEnergiaAttuale());
                     System.out.println("P -> pagare | A -> Attaccare | S -> scappare");
                     System.out.println("Fai la scelta");
                     scelta4 = scanner.next().toUpperCase();
 
                     if (scelta4.equals("P")) {
-                        if (player.getMoneteAttuale() > 15) {
+                        if (player.getMoneteAttuale() >=15) {
                             player.setMoneteAttuale(player.getMoneteAttuale() - 15);
                             Thread.sleep(1000);
                             System.out.println("Hai pagato la multa. Adesso rimangono " + player.getMoneteAttuale()+" monete");
@@ -469,11 +469,11 @@ public class Azioni {
             System.out.println("* Hai ripreso energia!");
             System.out.println("* Adesso la energia è: " + player.getEnergiaAttuale());
         }
-
+        System.out.println("------------------------------------------------------------------");
         System.out.println("* Ora puoi tornare all'incrocio o andare avanti a nord. cosa fai?");
         System.out.println();
-        System.out.println("I -> Incrocio ");
-        System.out.println("Altro -> Nord ");
+        System.out.println("I -> Incrocio| Altro -> Nord");
+
 
         String scelta = scanner.next().toUpperCase();
 
@@ -589,6 +589,7 @@ public class Azioni {
             System.out.println("* Ti puoi servire per entrare e uscire dalla città senza problemi!");
             Thread.sleep(1000);
             System.out.println();
+            System.out.println("------------------------------------------------------------------");
             System.out.println("* Cosa fai?");
             System.out.println("P -> prendi la lettera e scappi");
             System.out.println("Altro -> Torni all'incrocio");
@@ -612,9 +613,10 @@ public class Azioni {
                     Thread.sleep(1000);
                     System.out.println("* Puoi scappare o parlare con cacciatore");
                     System.out.println();
+                    System.out.println("------------------------------------------------------------------");
                     System.out.println("* Cosa fai?");
-                    System.out.println("P -> Parli con cacciatore");
-                    System.out.println("Altro -> Scappi");
+                    System.out.println("P -> Parli con cacciatore | Altro -> Scappi");
+
                     String scelta1 = scanner.next().toUpperCase();
                     if (scelta1.equals("P")) {
                         Thread.sleep(1000);
@@ -734,9 +736,10 @@ public class Azioni {
         System.out.println("----------------------------------------------------------");
         System.out.println("* Hai " + player.getMoneteAttuale() + " monete.");
         System.out.println();
+        System.out.println("------------------------------------------------------------------");
         System.out.println("* Cosa fai? ");
-        System.out.println("I -> indovinelli");
-        System.out.println("Altro -> torna al incrocio");
+        System.out.println("I -> indovinelli | Altro -> torna al incrocio");
+
         String scelta = scanner.next().toUpperCase();
         String rispostaIndovino = "";
         String sceltaSeContinuare = "";
@@ -788,7 +791,8 @@ public class Azioni {
                 System.out.println("----------------------------------------------------------");
                 System.out.println("SIGNORA: Mi dispiace, non è la risposta giusta. Vuoi provare ancora?");
             }
-            System.out.println("Inserisci la scelta: S-> Si | Altro -> No");
+            System.out.println();
+            System.out.println("* Inserisci la scelta: S-> Si | Altro -> No");
             sceltaSeContinuare = scanner.next().toUpperCase();
 
         }
@@ -813,7 +817,7 @@ public class Azioni {
         if (player.isSconfittoAvversario()) {
             Thread.sleep(1000);
             System.out.println("----------------------------------------------------------");
-            if (!player.isTaverna()){
+            if (!player.isParlatoProprietaria()){
                 System.out.println("PROPRIETARIA: Ciao straniero! Ho sentito che hai sconfitto il " + playersSetup.getPersonaggi().get(1).getNome() + "!");
                 Thread.sleep(1000);
                 System.out.println("PROPRIETARIA:...Sei un eroe!");
@@ -828,6 +832,7 @@ public class Azioni {
                 Thread.sleep(1000);
                 System.out.println("----------------------------------------------------------");
                 System.out.println("Hai " + player.getMoneteAttuale() + " monete.");
+                player.setParlatoProprietaria(true);
             }else{
                 System.out.println("PROPRIETARIA: Allora sei tornato.. ");
                 System.out.println("PROPRIETARIA: Ora vuoi ordinare il cibo? ");
@@ -843,6 +848,8 @@ public class Azioni {
                 Thread.sleep(1000);
                 System.out.println("PROPRIETARIA:...oppure a est c'e un villaggio dove puoi fare indovinelli e ricevi monete se sei bravo");
                 Thread.sleep(1000);
+                System.out.println();
+                System.out.println("------------------------------------------------------------------");
                 System.out.println("* Cosa fai? E -> andare a est | Altro -> andare a ovest");
                 String scelta = scanner.next().toUpperCase();
                 if (scelta.equals("E")) {
@@ -874,6 +881,7 @@ public class Azioni {
                 System.out.println("* Congratulazioni! Hai vinto nel gioco!");
                 Thread.sleep(1000);
                 System.out.println("********  Fine ********");
+                System.out.println();
                 System.out.println("Vuoi provare ancora? S -> Si | Altro ->No");
                 String scelta = scanner.next().toUpperCase();
                 if (scelta.equals("S")) {
