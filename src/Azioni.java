@@ -82,16 +82,18 @@ public class Azioni {
         //Blocco parlare->2 volte possibilità di entrare (random)
         if (scelta1.equals("P")) {
             //se player scappato dalla guardia (boolean)
-            if (player.isScappato() && !player.isPermesso()&&!player.isGuardiaContenta()) {
-                Thread.sleep(1000);
-                System.out.println("GUARDIA: Ciao straniero, ti ricordo così il tuo nome è "
-                        + player.getNome());
-                Thread.sleep(1000);
-                System.out.println("GUARDIA:...Hai scappato da me l'altra volta, cosa vuoi adesso?");
+            if ((player.isScappato() && !player.isPermesso()&&!player.isGuardiaContenta())|| player.isSconfittoGuardia()) {
+                if (player.isScappato()){
+                    Thread.sleep(1000);
+                    System.out.println("GUARDIA: Ciao straniero, ti ricordo così il tuo nome è "
+                            + player.getNome());
+                    Thread.sleep(1000);
+                    System.out.println("GUARDIA:...Hai scappato da me l'altra volta, cosa vuoi adesso?");
 
-                Thread.sleep(1000);
-                System.out.println(player.getNome() + ": si, avevo un impegno urgente all'incrocio, " +
-                        "ma sono tornato.");
+                    Thread.sleep(1000);
+                    System.out.println(player.getNome() + ": si, avevo un impegno urgente all'incrocio, " +
+                            "ma sono tornato.");
+                }
 
                 if (player.isSconfittoGuardia()) {
                     Thread.sleep(1000);
@@ -140,7 +142,7 @@ public class Azioni {
 
             //random prima opportunità di entrare dipende dal livello: 1/2 Semplice; 1/3 medio, 1/4 difficile
             numRandFortunaFino50 = (int) (Math.random() * numA + 1);
-            if (numRandFortunaFino50 != 1 && !player.isSconfittoAvversario()) {
+            if (numRandFortunaFino50 != 1 && !player.isSconfittoAvversario() &&!player.isSconfittoGuardia()) {
                 Thread.sleep(1000);
                 System.out.println(player.getNome() + ": ...sono " + player.getNome() + ", posso passare?");
                 Thread.sleep(1000);
@@ -219,7 +221,7 @@ public class Azioni {
         // -sconfitto avversario :dopo metodo startAttacco()
         if ((numRandFortunaGrande <= 50 && numRandFortunaGrande != 0)
                 || numRandFortunaFino50 == 1 || player.isPermesso() || player.isSconfittoAvversario()) {
-            if (numRandFortunaFino50 == 1 && !player.isPermesso() && !player.isSconfittoAvversario()) {
+            if (numRandFortunaFino50 == 1 && !player.isPermesso() && !player.isSconfittoAvversario()&&!player.isSconfittoGuardia()) {
 
                 Thread.sleep(1000);
                 System.out.println(player.getNome() + ": Ciao buon uomo, sono " + player.getNome());
@@ -270,7 +272,7 @@ public class Azioni {
 
 
         //Blocco Attaccare->se vinci ricevi bonus energia=energiaStart di Guardia
-        if (scelta1.equals("A") || scelta2.equals("A") || scelta3.equals("A") || scelta5.equals("A")) {
+        if (scelta1.equals("A") || scelta2.equals("A") || scelta3.equals("A") || scelta5.equals("A") ||scelta4.equals("A")) {
             Player guardia = playersSetup.getPersonaggi().get(2);
             startAttacco(player, guardia);
         }
