@@ -109,8 +109,8 @@ public class Azioni {
                     System.out.println("* La tua energia é: " + player.getEnergiaAttuale());
                     System.out.println("P -> pagare | A -> Attaccare | S -> scappare");
                     System.out.println("Fai la scelta");
-
                     scelta4 = scanner.next().toUpperCase();
+
                     if (scelta4.equals("P")) {
                         if (player.getMoneteAttuale() > 15) {
                             player.setMoneteAttuale(player.getMoneteAttuale() - 15);
@@ -279,7 +279,7 @@ public class Azioni {
 
 
         //Blocco Scappare->se scappi ricevi Multa diminuire energia o bonus energia->random 10-25
-        if (scelta1.equals("S") || scelta2.equals("S") || scelta3.equals("S") || scelta5.equals("S")) {
+        if (scelta1.equals("S") || scelta2.equals("S") || scelta3.equals("S") || scelta5.equals("S")||scelta4.equals("S") ) {
             Thread.sleep(1000);
             System.out.println("----------------------------------------------------------");
             System.out.println("* Sei riuscito a scappare!");
@@ -829,10 +829,9 @@ public class Azioni {
                 System.out.println("----------------------------------------------------------");
                 System.out.println("Hai " + player.getMoneteAttuale() + " monete.");
             }else{
-                System.out.println("PROPRIETARIA: Sei tornato! ");
+                System.out.println("PROPRIETARIA: Allora sei tornato.. ");
                 System.out.println("PROPRIETARIA: Ora vuoi ordinare il cibo? ");
             }
-
 
 
             if (player.getMoneteAttuale() < 16) {
