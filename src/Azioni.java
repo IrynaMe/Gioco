@@ -79,14 +79,15 @@ public class Azioni {
             }
         }
 
-
+        //Blocco parlare->2 volte possibilità di entrare (random)
         if (scelta1.equals("P")) {
-            if (player.isScappato() && !player.isPermesso()) {
+            //se player scappato dalla guardia (boolean)
+            if (player.isScappato() && !player.isPermesso()&&!player.isGuardiaContenta()) {
                 Thread.sleep(1000);
                 System.out.println("GUARDIA: Ciao straniero, ti ricordo così il tuo nome è "
                         + player.getNome());
                 Thread.sleep(1000);
-                System.out.println("...Hai scappato da me l'altra volta, cosa vuoi adesso?");
+                System.out.println("GUARDIA:...Hai scappato da me l'altra volta, cosa vuoi adesso?");
 
                 Thread.sleep(1000);
                 System.out.println(player.getNome() + ": si, avevo un impegno urgente all'incrocio, " +
@@ -137,7 +138,7 @@ public class Azioni {
                 System.out.println("GUARDIA: Ciao straniero, come ti chiami?");
             }
 
-            //random opportunità di entrare dipende dal livello: 1/2 Semplice; 1/3 medio, 1/4 difficile
+            //random prima opportunità di entrare dipende dal livello: 1/2 Semplice; 1/3 medio, 1/4 difficile
             numRandFortunaFino50 = (int) (Math.random() * numA + 1);
             if (numRandFortunaFino50 != 1 && !player.isSconfittoAvversario()) {
                 Thread.sleep(1000);
@@ -177,7 +178,7 @@ public class Azioni {
                         Thread.sleep(1000);
                         System.out.println(player.getNome() + ": " + risposta);
 
-                        //opportunità circa 50% per entrare-difficile, 60% medio, 70% semplice
+                        //random seconda opportunità entrare circa 50% per entrare-difficile, 60% medio, 70% semplice
                         numRandFortunaGrande = (int) (Math.random() * numB);// range 1-100 diff, 1-86 medio, 1-75 facile
                         if (numRandFortunaGrande > 50) {
                             Thread.sleep(1000);
@@ -207,13 +208,12 @@ public class Azioni {
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
 
-
-                    }//end numRandFortunaGrande>50
-                }//end if (scelta2.equals("P")) ->scappare o attaccare
-            }//end numRandomEntrareSubito!=1
-        }//end if (scelta1.equals("P"))->scappare o attaccare
-
+        // Blocco che permette entrare:
         // puoi entrare se: -hai fortuna(random)
         // -hai la lettera dal Capitano: dopo metodo ovest()
         // -sconfitto avversario :dopo metodo startAttacco()
@@ -226,8 +226,8 @@ public class Azioni {
                 Thread.sleep(1000);
                 System.out.println("...Ho fatto un viaggio lungo per arrivare quà," +
                         "cerco un Signore per consegnarlo un pacco importante");
-
-            } else if (player.isSconfittoAvversario()) {
+            //se sconfitto avversario ma guardia non lo sa(boolean isGuardiaContenta)
+            } else if (player.isSconfittoAvversario()&&player.isGuardiaContenta()==false) {
                 Thread.sleep(1000);
                 System.out.println("GUARDIA: Perchè hai un livido sotto l'occhio?");
                 Thread.sleep(1000);
@@ -236,10 +236,15 @@ public class Azioni {
                 Thread.sleep(1000);
                 System.out.println("GUARDIA: Hai ucciso " + playersSetup.getPersonaggi().get(1).getNome() + "?!");
                 Thread.sleep(1000);
-                System.out.println("...Sei un bravo uomo! Entri,entri! Oggi festeggiamo!");
+                System.out.println("GUARDIA: Sei un bravo uomo!");
+                player.setGuardiaContenta(true);
+                //se player ha lettera ->metodo ovest()->boolean isPermesso
             } else if (player.isPermesso()) {
                 Thread.sleep(1000);
-                System.out.println("...Ho la lettera, firmato dal Capitano della guardia! Sbrigati!");
+                System.out.println(player.getNome()+":...Ho la lettera, firmato dal Capitano della guardia! Sbrigati!");
+            //se player sconfitto avversario (boolean) e l'ho gia detto a guardia prima(boolean isGuardiaContenta)
+            } else if (player.isSconfittoAvversario()&&player.isGuardiaContenta()==true) {
+                System.out.println("GUARDIA: Ah! Ti ricordo: sei "+player.getNome()+"! Hai salvato la nostra città!");
             }
 
             Thread.sleep(1000);
@@ -264,14 +269,14 @@ public class Azioni {
         }
 
 
-        //Attaccare->se vinci ricevi bonus energia=energiaStart di Guardia
+        //Blocco Attaccare->se vinci ricevi bonus energia=energiaStart di Guardia
         if (scelta1.equals("A") || scelta2.equals("A") || scelta3.equals("A") || scelta5.equals("A")) {
             Player guardia = playersSetup.getPersonaggi().get(2);
             startAttacco(player, guardia);
         }
 
 
-        //Scappare->se scappi ricevi Multa diminuire energia o bonus energia->random 10-25
+        //Blocco Scappare->se scappi ricevi Multa diminuire energia o bonus energia->random 10-25
         if (scelta1.equals("S") || scelta2.equals("S") || scelta3.equals("S") || scelta5.equals("S")) {
             Thread.sleep(1000);
             System.out.println("----------------------------------------------------------");
@@ -283,7 +288,7 @@ public class Azioni {
                 numEnergia *= (-1);
                 player.setEnergiaAttuale(player.getEnergiaAttuale() + numEnergia);
                 controlloEnergia(player);
-                System.out.println("Hai fatto fatica, così hai " + numEnergia + " di energia");
+                System.out.println("* Hai fatto fatica, così hai " + numEnergia + " di energia");
             } else {
                 player.setEnergiaAttuale(player.getEnergiaAttuale() + numEnergia);
                 System.out.println("* Ti senti molto contente, la energia è elevata: hai +" + numEnergia + " di energia");

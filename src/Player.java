@@ -12,6 +12,7 @@ public class Player {
     private boolean isNord; //dove incontrato il avversario
     private boolean isTaverna; //dove incontrato il avversario
     private boolean isCitta; // se entrato in città
+private boolean guardiaContenta;//se guardia sa che ha ucciso il avversario
 
 
     private int energiaAttuale;
@@ -19,6 +20,13 @@ public class Player {
     private int moneteStart;
     private int moneteAttuale;
 
+    public boolean isGuardiaContenta() {
+        return guardiaContenta;
+    }
+
+    public void setGuardiaContenta(boolean guardiaContenta) {
+        this.guardiaContenta = guardiaContenta;
+    }
 
     public void setCitta(boolean citta) {
         isCitta = citta;
