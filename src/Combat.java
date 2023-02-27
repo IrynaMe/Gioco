@@ -29,8 +29,8 @@ public class Combat {
             default:
                 System.out.println("Colpo schivato"); //danno ==1
                 playerAttaccato.setEnergiaAttuale(playerAttaccato.getEnergiaAttuale() + 3);
-                System.out.println("Energia rimane: " + playerAttaccato.getEnergiaAttuale());
-                System.out.println("_____________________________________");
+                System.out.println("ENERGIA di" +playerAttaccato.getNome()+" rimane: "
+                        +"==="+ playerAttaccato.getEnergiaAttuale()+"===");
         }
     }
 }
