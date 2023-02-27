@@ -307,7 +307,7 @@ public class Azioni {
         System.out.println("* Comincia il combattimento! Buona fortuna!");
         while (giocatoreA.getEnergiaAttuale() > 0 || giocatoreB.getEnergiaAttuale() > 0) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -334,7 +334,7 @@ public class Azioni {
                 giocatoreA.setEnergiaAttuale(0);
             }
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
