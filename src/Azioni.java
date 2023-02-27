@@ -25,7 +25,7 @@ public class Azioni {
     HashMap<String, Integer> impostazioni = playersSetup.getImpostazioni();
 
     public void iniziaGioco(Player player) {
-        System.out.println("* Hai un pacco importante da consegnare in città Citabella per un Signore Daipacchetti.");
+        System.out.println("* Hai un pacco importante da consegnare nella città Citabella per il Signore Daipacchetti.");
         System.out.println("* Quando entri in città, trova una taverna, là ti daranno indicazioni per incontrare il Signore Daipacchetti.");
         System.out.println("* Hai fatto una strada lunga e finalmente sei vicino la città.");
         System.out.println("* La tua energia é: " + player.getEnergiaAttuale());
@@ -225,7 +225,7 @@ public class Azioni {
                 System.out.println(player.getNome() + ": Ciao buon uomo, sono " + player.getNome());
                 Thread.sleep(1000);
                 System.out.println("...Ho fatto un viaggio lungo per arrivare quà," +
-                        "cerco un Signore per consegnarlo un pacco importante");
+                        "cerco un Signore per consegnarli un pacco importante");
             //se sconfitto avversario ma guardia non lo sa(boolean isGuardiaContenta)
             } else if (player.isSconfittoAvversario()&&player.isGuardiaContenta()==false) {
                 Thread.sleep(1000);
@@ -368,7 +368,7 @@ public class Azioni {
 
             }
             if (giocatoreA.isTaverna()) {
-                System.out.println("* Non è puù pericoloso in città, taverna è aperta!");
+                System.out.println("* Non è puù pericoloso in città, la taverna è aperta!");
                 System.out.println("* Parla con la proprietaria e scopri come trovare il Signore Daipacchetti ");
                 giocatoreA.setSconfittoAvversario(true);
                 try {
@@ -718,12 +718,12 @@ public class Azioni {
         System.out.println("* Camminando entri in un villaggio piccolo.");
         System.out.println("* Vedi una cabina in cui si trova una vecchia signora.");
         System.out.println("* Sulla cabina c'è una scritta: Vuoi arricchirti? Vieni quà!");
-        System.out.println("* Avvicini alla cabina");
+        System.out.println("* TI avvicini alla cabina");
         Thread.sleep(1000);
         System.out.println("----------------------------------------------------------");
         System.out.println(player.getNome() + ": Buongiorno signora, come posso arricchirmi?");
         Thread.sleep(1000);
-        System.out.println("SIGNORA: Ciao, viaggiatore! Per 1 moneta ti do un indovino, ");
+        System.out.println("SIGNORA: Ciao, viaggiatore! Per 1 moneta ti do un indovinello, ");
         Thread.sleep(1000);
         System.out.println("SIGNORA:...Se dai una risposta giusta, ricevi " + impostazioni.get("numGuadagno") + " monete.");
         Thread.sleep(1000);
@@ -738,12 +738,12 @@ public class Azioni {
         String sceltaSeContinuare = "";
         int numRanIndovino = 0;
         boolean isFinito = false;
-        while (scelta.equals("I") || sceltaSeContinuare.equals("S") || isFinito == false) {
+        while ((scelta.equals("I") || sceltaSeContinuare.equals("S") )&& isFinito == false) {
             scelta = "";
             if (player.getMoneteAttuale() <= 0) {
                 Thread.sleep(1000);
                 System.out.println("----------------------------------------------------------");
-                System.out.println("* Non hai abbastanza monette per fare indovinelli.");
+                System.out.println("* Non hai abbastanza monete per fare indovinelli.");
                 System.out.println("* Devi tornare all'incrocio");
                 incrocio(player);
             }
@@ -803,13 +803,13 @@ public class Azioni {
         if (!player.isTaverna()) {
             Thread.sleep(1000);
             System.out.println("----------------------------------------------------------");
-            System.out.println("* Adesso devi andare alla taverna per trovare il Signore Daipacchetti e consegnarlo il pacco.");
+            System.out.println("* Adesso devi andare alla taverna per trovare il Signore Daipacchetti e consegnarli il pacco.");
             System.out.println("* Ecco la taverna!");
         }
         if (player.isSconfittoAvversario()) {
             Thread.sleep(1000);
             System.out.println("----------------------------------------------------------");
-            System.out.println("PROPRIETARIA: Ciao straniere! Ho sentito hai sconfitto il " + playersSetup.getPersonaggi().get(1).getNome() + "!");
+            System.out.println("PROPRIETARIA: Ciao straniero! Ho sentito che hai sconfitto il " + playersSetup.getPersonaggi().get(1).getNome() + "!");
             Thread.sleep(1000);
             System.out.println("PROPRIETARIA:...Sei un eroe!");
             Thread.sleep(1000);
@@ -822,7 +822,7 @@ public class Azioni {
             System.out.println("PROPRIETARIA: Eh..si, lo conosco e ti aiuto se ordini il nostro piatto del giorno. Costa 16 monete");
             Thread.sleep(1000);
             System.out.println("----------------------------------------------------------");
-            System.out.println("Hai " + player.getMoneteAttuale() + " monette.");
+            System.out.println("Hai " + player.getMoneteAttuale() + " monete.");
             if (player.getMoneteAttuale() < 16) {
                 Thread.sleep(1000);
                 System.out.println("----------------------------------------------------------");
