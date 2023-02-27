@@ -11,24 +11,24 @@ public class Combat {
         //se num=1 Colpo schivato
         switch (randomNum) {
             case 2:
-                playerAttaccato.setEnergiaAttuale(playerAttaccato.getEnergiaAttuale() - 1);
+                playerAttaccato.setEnergiaAttuale(playerAttaccato.getEnergiaAttuale() - 5);
                 System.out.println("Danno: Lieve");
                 break;
             case 3:
-                playerAttaccato.setEnergiaAttuale(playerAttaccato.getEnergiaAttuale() - 3);
+                playerAttaccato.setEnergiaAttuale(playerAttaccato.getEnergiaAttuale() - 10);
                 System.out.println("Danno: Moderato");
                 break;
             case 4:
-                playerAttaccato.setEnergiaAttuale(playerAttaccato.getEnergiaAttuale() - 5);
+                playerAttaccato.setEnergiaAttuale(playerAttaccato.getEnergiaAttuale() - 15);
                 System.out.println("Danno: Grave");
                 break;
             case 5:
-                playerAttaccato.setEnergiaAttuale(playerAttaccato.getEnergiaAttuale() - 6);
+                playerAttaccato.setEnergiaAttuale(playerAttaccato.getEnergiaAttuale() - 20);
                 System.out.println("Danno: Gravissimo");
                 break;
             default:
                 System.out.println("Colpo schivato"); //danno ==1
-                playerAttaccato.setEnergiaAttuale(playerAttaccato.getEnergiaAttuale() + 3);
+                playerAttaccato.setEnergiaAttuale(playerAttaccato.getEnergiaAttuale() + 10);
                 System.out.println("ENERGIA di" +playerAttaccato.getNome()+" rimane: "
                         +"==="+ playerAttaccato.getEnergiaAttuale()+"===");
         }

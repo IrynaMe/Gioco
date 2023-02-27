@@ -840,12 +840,18 @@ public class Azioni {
                 if (scelta.equals("E")) {
                     try {
                         est(player);
+                       if (player.isSconfittoGuardia()){
+                           System.out.println("Sei riuscito ad uscire dalla città senza essere notato dalla Guardia");
+                       }
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                 } else {
 
                     try {
+                        if (player.isSconfittoGuardia()){
+                            System.out.println("Sei riuscito ad uscire dalla città senza essere notato dalla Guardia");
+                        }
                         ovest(player);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
