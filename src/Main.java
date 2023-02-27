@@ -8,14 +8,11 @@ public class Main {
     public static void main(String[] args) {
         Main app = new Main();
         app.startGame();
-
-
     }
 
     public void startGame() {
         playersSetup.giocatoriSetup();
         Player giocatore = playersSetup.getPersonaggi().get(0);
-
         azioni.iniziaGioco(giocatore);
     }
 }

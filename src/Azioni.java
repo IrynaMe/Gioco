@@ -5,18 +5,21 @@ import java.io.IOException;
 import java.sql.SQLOutput;
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.Scanner;
 
 public class Azioni {
-    // Main main=new Main();
+
     private Properties properties = null;
     Conversazioni conversazioni = new Conversazioni();
     Scanner scanner = new Scanner(System.in);
     Combat combat = new Combat();
 
-
+    ArrayList<Integer> indovinelliCoretto = new ArrayList<>();
+    ArrayList<Integer> indovinelliErrato = new ArrayList<>();
+    ArrayList<Integer> indovinelliErratoBackup = new ArrayList<>();
     PlayersSetup playersSetup = new PlayersSetup();
 
     public PlayersSetup getPlayersSetup() {
@@ -137,7 +140,7 @@ public class Azioni {
 
             //random opportunità di entrare dipende dal livello: 1/2 Semplice; 1/3 medio, 1/4 difficile
             numRandFortunaFino50 = (int) (Math.random() * numA + 1);
-            if (numRandFortunaFino50 != 1&&!player.isSconfittoAvversario()) {
+            if (numRandFortunaFino50 != 1 && !player.isSconfittoAvversario()) {
                 Thread.sleep(1000);
                 System.out.println(player.getNome() + ": ...sono " + player.getNome() + ", posso passare?");
                 Thread.sleep(1000);
@@ -490,6 +493,7 @@ public class Azioni {
     // 2c-torna senza lettera all'incrocio
     //Altre visite: puoi guadagnare monete, ma se in prima visita sei scappato con lettera->cacciatore arrabbiato
     public void ovest(Player player) throws InterruptedException {
+        String risposta = "";
 
         if (player.isOvest() || player.isSconfittoAvversario()) {
             System.out.println("---------------------------------------------------------");
@@ -534,7 +538,7 @@ public class Azioni {
                 Thread.sleep(1000);
 
                 int numRandLavoro = (int) (Math.random() * 6); //for array conversazioni ind 0-5
-                String risposta = conversazioni.getLavoroCacciatore()[numRandLavoro];
+                risposta = conversazioni.getLavoroCacciatore()[numRandLavoro];
                 System.out.println("CACCIATORE: Sei arrivato in tempo! Mi serve " + risposta);
                 int guadagno = impostazioni.get("numGuadagno");
                 Thread.sleep(1000);
@@ -684,7 +688,11 @@ public class Azioni {
     //viene in villaggio e puo: 1 fare indovinelli->paga 1 moneta per provare indovino, se vince->riceve 5 monete
 // 2 tornare al incrocio
     public void est(Player player) throws InterruptedException {
-
+        if (indovinelliCoretto.size() == conversazioni.getIndovini().length) {
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Tu hai risolto tutti gli indovinelli, torna all'incrocio");
+            incrocio(player);
+        }
         System.out.println("----------------------------------------------------------");
         System.out.println("* Camminando entri in un villaggio piccolo.");
         System.out.println("* Vedi una cabina in cui si trova una vecchia signora.");
@@ -707,7 +715,9 @@ public class Azioni {
         String scelta = scanner.next().toUpperCase();
         String rispostaIndovino = "";
         String sceltaSeContinuare = "";
-        while (scelta.equals("I") || sceltaSeContinuare.equals("S")) {
+        int numRanIndovino = 0;
+        boolean isFinito = false;
+        while (scelta.equals("I") || sceltaSeContinuare.equals("S") || isFinito == false) {
             scelta = "";
             if (player.getMoneteAttuale() <= 0) {
                 Thread.sleep(1000);
@@ -717,28 +727,55 @@ public class Azioni {
                 incrocio(player);
             }
             player.setMoneteAttuale(player.getMoneteAttuale() - 1);
-            int numRanIndovino = (int) (Math.random() * 8); //for array indovinelli ind 0-7
+            //
+            do {
+                numRanIndovino = (int) (Math.random() * 9); //for array indovinelli ind 0-8
+                if ((indovinelliErrato.size() > 0 && indovinelliCoretto.size() > 0) &&
+                        (indovinelliCoretto.size() + indovinelliErrato.size() == conversazioni.getIndovini().length)
+                ||indovinelliCoretto.size() == conversazioni.getIndovini().length) {
+                    isFinito = true;
+                    break;
+                }
+            } while (indovinelliCoretto.contains(numRanIndovino) || indovinelliErrato.contains(numRanIndovino)
+
+            );
+
+
+            if (isFinito) {
+                System.out.println("SIGNORA: Non ci sono più indovinelli per te, torna l'altra volta");
+                //domande per risposte sbagliate possono apparire la prossima volta
+                indovinelliErratoBackup=indovinelliErrato;
+                indovinelliErrato = new ArrayList<>();
+
+                incrocio(player);
+            }
             String indovino = conversazioni.getIndovini()[numRanIndovino];
             String rispostaGiusta = conversazioni.getRisposteIndovini()[numRanIndovino];
-            System.out.println(player.getNome() + ": " + indovino);
+            System.out.println("INDOVINELLO: " + indovino);
             rispostaIndovino = scanner.next().toUpperCase().trim();
+            System.out.println("TEST num indovino prima" + numRanIndovino);
+
             if (rispostaIndovino.equals(rispostaGiusta)) {
                 player.setMoneteAttuale(player.getMoneteAttuale() + impostazioni.get("numGuadagno"));
+                indovinelliCoretto.add(numRanIndovino);
 
                 System.out.println("----------------------------------------------------------");
                 System.out.println("SIGNORA: Che bravo! Hai guadagnato " + impostazioni.get("numGuadagno") + " monete! Vuoi provare ancora?");
             } else {
-
+                indovinelliErrato.add(numRanIndovino);
                 System.out.println("----------------------------------------------------------");
                 System.out.println("Mi dispiace, non è la risposta giusta. Vuoi provare ancora?");
             }
             System.out.println("Inserisci la scelta: S-> Si | Altro -> No");
             sceltaSeContinuare = scanner.next().toUpperCase();
+
         }
 
+        //domande per risposte sbagliate possono apparire la prossima volta
+        indovinelliErrato = new ArrayList<>();
         incrocio(player);
-
     }
+
 
     //1 se hai sconfitto il avversario prima->taverna aperta
     //1a parli con proprietaria, se hai abbastanza soldi-compri la cena e vinci
