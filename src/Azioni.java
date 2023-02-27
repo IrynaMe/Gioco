@@ -115,7 +115,7 @@ public class Azioni {
                         if (player.getMoneteAttuale() > 15) {
                             player.setMoneteAttuale(player.getMoneteAttuale() - 15);
                             Thread.sleep(1000);
-                            System.out.println("Hai pagato la multa. Adesso rimangono " + player.getMoneteAttuale());
+                            System.out.println("Hai pagato la multa. Adesso rimangono " + player.getMoneteAttuale()+" monete");
 
                             Thread.sleep(1000);
                             System.out.println("GUARDIAN: Bravo. Ti faccio un favore: elimino la tua procedura in ufficio");
@@ -256,7 +256,7 @@ public class Azioni {
             Thread.sleep(1000);
             System.out.println("----------------------------------------------------------");
             System.out.println("* Auguri! Puoi entrare in città!");
-            if (numRandFortunaFino50 == 1 || numRandFortunaGrande <= 50) {
+            if ((numRandFortunaFino50 == 1 || numRandFortunaGrande <= 50) && !player.isGuardiaContenta()) {
                 System.out.println("* Sei fortunato: la Guardia aveva un buon umore.");
                 System.out.println("* Ma la prossima volta può essere non cosi' facile.");
 
@@ -348,6 +348,7 @@ public class Azioni {
             System.out.println("----------------------------------------------------------");
             System.out.println("* Hai vinto il combattimento! Hai ricevuto il bonus: energia dallo sfidante: "
                     + giocatoreB.getEnergiaStart());
+            System.out.println("Ora la tua energia è: "+giocatoreA.getEnergiaAttuale());
             if (giocatoreB.equals(playersSetup.getPersonaggi().get(2))) {
                 giocatoreA.setSconfittoGuardia(true);
                 giocatoreB.setEnergiaAttuale(giocatoreB.getEnergiaStart());
@@ -812,20 +813,28 @@ public class Azioni {
         if (player.isSconfittoAvversario()) {
             Thread.sleep(1000);
             System.out.println("----------------------------------------------------------");
-            System.out.println("PROPRIETARIA: Ciao straniero! Ho sentito che hai sconfitto il " + playersSetup.getPersonaggi().get(1).getNome() + "!");
-            Thread.sleep(1000);
-            System.out.println("PROPRIETARIA:...Sei un eroe!");
-            Thread.sleep(1000);
-            System.out.println(player.getNome() + ": Eh.. si..Ho fatto ciò che dovevo..");
-            Thread.sleep(1000);
-            System.out.println("PROPRIETARIA: cosa cerchi nella nostra città?");
-            Thread.sleep(1000);
-            System.out.println(player.getNome()+": Devo trovare il Signore Daipacchetti, speravo che tu mi aiuti.");
-            Thread.sleep(1000);
-            System.out.println("PROPRIETARIA: Eh..si, lo conosco e ti aiuto se ordini il nostro piatto del giorno. Costa 16 monete");
-            Thread.sleep(1000);
-            System.out.println("----------------------------------------------------------");
-            System.out.println("Hai " + player.getMoneteAttuale() + " monete.");
+            if (!player.isTaverna()){
+                System.out.println("PROPRIETARIA: Ciao straniero! Ho sentito che hai sconfitto il " + playersSetup.getPersonaggi().get(1).getNome() + "!");
+                Thread.sleep(1000);
+                System.out.println("PROPRIETARIA:...Sei un eroe!");
+                Thread.sleep(1000);
+                System.out.println(player.getNome() + ": Eh.. si..Ho fatto ciò che dovevo..");
+                Thread.sleep(1000);
+                System.out.println("PROPRIETARIA: cosa cerchi nella nostra città?");
+                Thread.sleep(1000);
+                System.out.println(player.getNome()+": Devo trovare il Signore Daipacchetti, speravo che tu mi aiuti.");
+                Thread.sleep(1000);
+                System.out.println("PROPRIETARIA: Eh..si, lo conosco e ti aiuto se ordini il nostro piatto del giorno. Costa 16 monete");
+                Thread.sleep(1000);
+                System.out.println("----------------------------------------------------------");
+                System.out.println("Hai " + player.getMoneteAttuale() + " monete.");
+            }else{
+                System.out.println("PROPRIETARIA: Sei tornato! ");
+                System.out.println("PROPRIETARIA: Ora vuoi ordinare il cibo? ");
+            }
+
+
+
             if (player.getMoneteAttuale() < 16) {
                 Thread.sleep(1000);
                 System.out.println("----------------------------------------------------------");
@@ -856,7 +865,7 @@ public class Azioni {
             } else {
                 Thread.sleep(1000);
                 System.out.println("----------------------------------------------------------");
-                System.out.println(player.getNome() + ": Perfetto! Non ho mangiato tutto il giorno!");
+                System.out.println(player.getNome() + ": Si, perfetto! Non ho mangiato tutto il giorno!");
                 Thread.sleep(1000);
                 System.out.println("* PROPRIETARIA porta il piatto. Lo mangi in un attimo, e molto gustoso e tu avevi tanta fame.");
                 Thread.sleep(1000);
@@ -885,7 +894,7 @@ public class Azioni {
             Thread.sleep(1000);
             System.out.println("* La tua energia é: " + player.getEnergiaAttuale());
             System.out.println("* Cosa fai?");
-            System.out.println(" S -> Scappare | A -> Attaccare");
+            System.out.println(" S -> Scappare | Altro -> Attaccare");
             String scelta = scanner.next().toUpperCase();
             if (scelta.equals("S")) {
                 if (player.isSconfittoGuardia()){
