@@ -219,9 +219,9 @@ public class Azioni {
         // puoi entrare se: -hai fortuna(random)
         // -hai la lettera dal Capitano: dopo metodo ovest()
         // -sconfitto avversario :dopo metodo startAttacco()
-        if ((numRandFortunaGrande <= 50 && numRandFortunaGrande != 0)
-                || numRandFortunaFino50 == 1 || player.isPermesso() || player.isSconfittoAvversario()) {
-            if (numRandFortunaFino50 == 1 && !player.isPermesso() && !player.isSconfittoAvversario()&&!player.isSconfittoGuardia()) {
+        if ((!player.isSconfittoGuardia())&&((numRandFortunaGrande <= 50 && numRandFortunaGrande != 0)
+                || numRandFortunaFino50 == 1 || player.isPermesso() || player.isSconfittoAvversario())) {
+            if (numRandFortunaFino50 == 1 && !player.isPermesso() && !player.isSconfittoAvversario()) {
 
                 Thread.sleep(1000);
                 System.out.println(player.getNome() + ": Ciao buon uomo, sono " + player.getNome());
