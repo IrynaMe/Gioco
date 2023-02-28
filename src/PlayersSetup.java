@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -80,7 +81,8 @@ public class PlayersSetup {
 
 
         try {
-            FileReader reader = new FileReader("config.properties");
+            FileReader reader = new FileReader(new File("./config.properties"));
+
             properties = new Properties();
             properties.load(reader);
 

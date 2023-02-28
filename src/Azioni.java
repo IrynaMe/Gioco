@@ -156,7 +156,7 @@ public class Azioni {
                     Thread.sleep(1000);
                     System.out.println("------------------------------------------------------");
                     System.out.println("* Sei deluso e hai perso " + numMulta + " di energia.");
-                    System.out.println("* Adesso la energia è: " + player.getEnergiaAttuale());
+                    controlloEnergia(player);
                     System.out.println();
                     System.out.println("* Cosa pensi di fare?");
                     System.out.println("P: Provare di convincere la guardia a farti entrare");
@@ -189,10 +189,9 @@ public class Azioni {
                             //giocatore perde energia random da 5 a 15
                             int multaEnergia = (int) (Math.random() * 10 + 5);
                             player.setEnergiaAttuale(player.getEnergiaAttuale() - multaEnergia);
-                            controlloEnergia(player);
 
                             System.out.println("* Sei deluso e hai perso " + multaEnergia + " di energia.");
-                            System.out.println("* Adesso la energia è: " + player.getEnergiaAttuale());
+                            controlloEnergia(player);
                             Thread.sleep(1000);
                             System.out.println("----------------------------------------------------------");
                             System.out.println("* Allora non è utile a parlare, devi attaccare o scappare, cosa fai?");
@@ -266,7 +265,7 @@ public class Azioni {
             Thread.sleep(1000);
             System.out.println("----------------------------------------------------------");
             System.out.println("* Tu hai ottenuto bonus: +" + numBonus + " di energia!");
-            System.out.println("* Adesso la energia è: " + player.getEnergiaAttuale());
+            controlloEnergia(player);
             player.setCitta(true);
             dentroCitta(player);
         }
@@ -290,13 +289,12 @@ public class Azioni {
             if (numEnergia % 2 == 0) {
                 numEnergia *= (-1);
                 player.setEnergiaAttuale(player.getEnergiaAttuale() + numEnergia);
-                controlloEnergia(player);
                 System.out.println("* Hai fatto fatica, così hai " + numEnergia + " di energia");
             } else {
                 player.setEnergiaAttuale(player.getEnergiaAttuale() + numEnergia);
                 System.out.println("* Ti senti molto contente, la energia è elevata: hai +" + numEnergia + " di energia");
             }
-            System.out.println("* Adesso la energia è: " + player.getEnergiaAttuale());
+            controlloEnergia(player);
             incrocio(player);
         }
 
@@ -349,7 +347,7 @@ public class Azioni {
             System.out.println("----------------------------------------------------------");
             System.out.println("* Hai vinto il combattimento! Hai ricevuto il bonus: energia dallo sfidante: "
                     + giocatoreB.getEnergiaStart());
-            System.out.println("Ora la tua energia è: " + giocatoreA.getEnergiaAttuale());
+            controlloEnergia(giocatoreA);
             if (giocatoreB.equals(playersSetup.getPersonaggi().get(2))) {
                 giocatoreA.setSconfittoGuardia(true);
                 giocatoreB.setEnergiaAttuale(giocatoreB.getEnergiaStart());
@@ -468,7 +466,7 @@ public class Azioni {
 
             System.out.println("----------------------------------------------------------");
             System.out.println("* Hai ripreso energia!");
-            System.out.println("* Adesso la energia è: " + player.getEnergiaAttuale());
+            controlloEnergia(player);
         }
         System.out.println("------------------------------------------------------------------");
         System.out.println("* Ora puoi tornare all'incrocio o andare avanti a nord. cosa fai?");
@@ -502,7 +500,6 @@ public class Azioni {
                 System.out.println("----------------------------------------------------------");
                 System.out.println("* Sei scappato ma sei stanco: hai perso " + numMulta + " di energia.");
                 controlloEnergia(player);
-                System.out.println("* Adesso la energia è: " + player.getEnergiaAttuale());
                 System.out.println("* Meglio tornate all'incrocio.");
                 incrocio(player);
             } else {
@@ -538,7 +535,6 @@ public class Azioni {
                 System.out.println("---------------------------------------------------------");
                 System.out.println("* Un'ora e passata, sei stanco, hai perso " + numMulta + " di energia");
                 controlloEnergia(player);
-                System.out.println("* Adesso la energia è: " + player.getEnergiaAttuale());
                 player.setCacciatoreArrabbiato(false);
 
                 Thread.sleep(1000);
@@ -658,7 +654,6 @@ public class Azioni {
                                 System.out.println("---------------------------------------------------------");
                                 System.out.println("* Un'ora e passata, sei stanco, hai perso " + numMulta + " di energia");
                                 controlloEnergia(player);
-                                System.out.println("* Adesso la energia è: " + player.getEnergiaAttuale());
                                 player.setPermesso(true);
                                 player.setOvest(true);
                                 entrataCitta(player);
@@ -680,9 +675,8 @@ public class Azioni {
                                 }
                                 int numMulta = (int) (Math.random() * 15 + 5);
                                 player.setEnergiaAttuale(player.getEnergiaAttuale() - numMulta);
-                                controlloEnergia(player);
                                 System.out.println("* Hai perso anche " + numMulta + " di energia.");
-                                System.out.println("* Adesso la energia è: " + player.getEnergiaAttuale());
+                                controlloEnergia(player);
                                 System.out.println("* Le monete rimangono: " + player.getMoneteAttuale());
                                 System.out.println("* Meglio tornare all'incrocio ");
                                 player.setOvest(true);
@@ -696,7 +690,6 @@ public class Azioni {
                         System.out.println("---------------------------------------------------------");
                         System.out.println("* Sei scappato, ma hai perso " + numMulta + " di energia");
                         controlloEnergia(player);
-                        System.out.println("* Adesso la energia è: " + player.getEnergiaAttuale());
                         System.out.println("* Ora puoi parlare con la Guardia e mostrarla la lettera per entrare  in città!");
                         player.setCacciatoreArrabbiato(true);
                         player.setPermesso(true);
@@ -923,7 +916,7 @@ public class Azioni {
         }
         if (player.getEnergiaAttuale() <= 0) {
             player.setEnergiaAttuale(0);
-            System.out.println("La tua energia attuale è 0.");
+            System.out.println("La tua energia è 0.");
             System.out.println("Il gioco è finito.");
             System.out.println("Vuoi provare ancora? S -> Si | Altro ->No");
             String scelta = scanner.next().toUpperCase();
@@ -932,6 +925,9 @@ public class Azioni {
                 Player giocatore = playersSetup.getPersonaggi().get(0);
                 iniziaGioco(giocatore);
             }
+        }
+        if (player.getEnergiaAttuale() >= 10){
+            System.out.println("La tua energia è: "+player.getEnergiaAttuale());
         }
     }
 
